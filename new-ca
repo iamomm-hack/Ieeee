@@ -1,0 +1,33 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+---- Uncomment the following library declaration if instantiating
+---- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity reg is
+port(
+clk, clear : in std_logic;
+Input_Data : in std_logic;
+Q : out std_logic_vector(3 downto 0)
+);
+end reg;
+
+architecture arch of reg is
+signal temp_Q : std_logic_vector(3 downto 0);
+begin
+process(clk)
+begin
+if clear = '1' then
+temp_Q <= "0000";
+elsif (clk'event and clk = '1') then
+temp_Q(3 downto 1) <= temp_Q(2 downto 0);
+temp_Q(0) <= Input_Data;
+end if;
+end process;
+
+Q <= temp_Q;
+end arch;
