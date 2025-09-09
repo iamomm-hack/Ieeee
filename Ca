@@ -1,0 +1,32 @@
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity leftshift is
+    port (
+        a : in std_logic_vector (0 to 7);
+        z, l, rst, load, clk : in bit;
+        q : out bit_vector (0 to 7)
+    );
+end leftshift;
+
+architecture behavioral of leftshift is
+begin
+    process (load, rst, a, clk)
+    begin
+        if (clk = '1' and clk'event) then
+            if (load = '1') then
+                q <= a;
+            elsif (load = '0') then
+                if (rst = '1') then
+                    q <= "00000000";
+                else
+                    if (l = '1') then
+                        q <= a(1 to 7) & '0';
+                    elsif (z = '1') then
+                        q <= a sll 1;
+                    end if;
+                end if;
+            end if;
+        end process;
+end behavioral;
