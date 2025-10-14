@@ -25,16 +25,16 @@ void enqueue(int value){
 
 void dequeue() {
     if (rear==NULL) {
-        printf("Queue is empty..cannot dequeue\n");
+        printf("Queue empty\n");
         return;
     }
     struct Node *temp=rear->next;
     if (rear->next==rear) {
-        printf("Dequeued element= %d\n", temp->data);
+        printf("Deleted = %d\n", temp->data);
         free(temp);
         rear = NULL;
     } else {
-        printf("Dequeued element= %d\n", temp->data);
+        printf("Deleted = %d\n", temp->data);
         rear->next = temp->next;
         free(temp);
     }
@@ -42,11 +42,11 @@ void dequeue() {
 
 void display() {
     if (rear==NULL) {
-        printf("Queue is empty!\n");
+        printf("Queue empty!\n");
         return;
     }
     struct Node *temp=rear->next;
-    printf("Queue elements= ");
+    printf("Queue= ");
     do {
         printf("%d ", temp->data);
         temp=temp->next;
